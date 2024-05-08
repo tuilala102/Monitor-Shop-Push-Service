@@ -1,0 +1,64 @@
+server:
+  port: 9090
+
+logging:
+  level:
+    org.springframework:
+      web: DEBUG
+
+spring:
+  application:
+    name: Api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: login
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/login/**
+        - id: users
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/users/**
+
+        - id: cart
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/cart/**
+        - id: cart detail
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/cart-detail/**
+        - id: categories
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/categories/**
+        - id: orders
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/orders/**
+        - id: order-detail
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/order-detail/**
+        - id: products
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/products/**
+        - id: rates
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/rates/**
+        - id: orders
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/orders/**
+        - id: statistical
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/statistical/**
+
+        - id: push
+          uri: http://localhost:8083
+          predicates:
+            - Path=/api/send-mail/**

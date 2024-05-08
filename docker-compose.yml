@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: bitnami/mysql:8.3.0
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+
+  redis:
+    image: redis
+    container_name: redis
+    restart: unless-stopped
+    command:
+      redis-server --requirepass "123456"
+    ports:
+      - '6379:6379'
+
+  rabbitmq:
+    image: 'bitnami/rabbitmq:latest'
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      - RABBITMQ_USERNAME=mshop
+      - RABBITMQ_PASSWORD=123456
+      - RABBITMQ_MANAGEMENT_ALLOW_WEB_ACCESS=true
+
+  minio:
+    image: 'bitnami/minio:latest'
+    container_name: minio
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    volumes:
+      - './minio-data:/bitnami/minio/data'
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
